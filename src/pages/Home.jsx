@@ -9,8 +9,8 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
+            <SearchBar />
             <ScrollView>
-                <SearchBar />
                 {filterMovies.length > 0 ?
                     <MovieList list={filterMovies} title={'Results'} />
 

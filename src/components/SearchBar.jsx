@@ -34,9 +34,8 @@ const SearchBar = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: "white",
-        marginTop: 20,
+        marginVertical: 20,
         borderWidth: 1,
         borderRadius: 12,
         height: 40,

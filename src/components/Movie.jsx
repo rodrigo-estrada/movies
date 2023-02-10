@@ -1,9 +1,20 @@
+import { useNavigation } from "@react-navigation/native"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { useDispatch } from "react-redux"
+import { clearDetails, getDetailMovie, getSimilarMovies } from "../redux/movies/moviesSlice"
 import Rating from "./Rating"
 
 const Movie = ({ info: { id, poster_path, title , vote_average} }) => {
+
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const handlePress = () => {
+        dispatch(clearDetails())
+        dispatch(getDetailMovie(id))
+        navigation.navigate('detail',{movie_id:id})
+    }
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity onPress={handlePress} style={styles.container}>
             <Image
                 style={styles.image}
                 resizeMode="cover"

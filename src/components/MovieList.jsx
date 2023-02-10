@@ -8,6 +8,7 @@ const MovieList = ({ list , title}) => {
             <Text style={styles.title}>{title}</Text>
             <FlatList data={list}
                 renderItem={renderItem}
+                showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 keyExtractor={(item) => item.id}
             />

@@ -6,7 +6,9 @@ const moviesSlice = createSlice({
     initialState: {
         topMovies: [],
         recommendedMovies: [],
-        filterMovies: []
+        filterMovies: [],
+        detailMovie: {},
+        similarMovies: []
     },
     reducers: {
         clearTopMovies: (state) => {
@@ -14,6 +16,10 @@ const moviesSlice = createSlice({
         },
         clearFilterResults: (state) => {
             state.filterMovies = []
+        },
+        clearDetails: (state) => {
+            state.detailMovie = {}
+            state.similarMovies = []
         }
     },
     extraReducers: (builder) => {
@@ -26,6 +32,12 @@ const moviesSlice = createSlice({
             })
             .addCase(getFilterMovies.fulfilled, (state, action) => {
                 state.filterMovies = action.payload
+            })
+            .addCase(getDetailMovie.fulfilled, (state, action) => {
+                state.detailMovie = action.payload
+            })
+            .addCase(getSimilarMovies.fulfilled, (state,action) => {
+                state.similarMovies = action.payload
             })
     }
 })
@@ -56,8 +68,8 @@ export const getRecomendedMovies = createAsyncThunk(
 
 export const getFilterMovies = createAsyncThunk(
     'getFilterMovies',
-    async (obj={}) => {
-        const response = await Request.getEncoded('search/movie',obj)
+    async (obj = {}) => {
+        const response = await Request.getEncoded('search/movie', obj)
         if (response) {
             return response ?? []
         } else {
@@ -65,5 +77,29 @@ export const getFilterMovies = createAsyncThunk(
         }
     }
 )
-export const { clearTopMovies, clearFilterResults } = moviesSlice.actions
+
+export const getDetailMovie = createAsyncThunk(
+    'getDetailMovie',
+    async (movie_id) => {
+        const response = await Request.getEncoded(`movie/${movie_id}`)
+        if (response) {
+            return response ?? {}
+        } else {
+            throw 'Error fetch'
+        }
+    }
+)
+
+export const getSimilarMovies = createAsyncThunk(
+    'getSimilarMovies',
+    async (movie_id) => {
+        const response = await Request.getEncoded(`movie/${movie_id}/similar`)
+        if (response) {
+            return response ?? []
+        } else {
+            throw 'Error fetch'
+        }
+    }
+)
+export const { clearTopMovies, clearFilterResults, clearDetails } = moviesSlice.actions
 export default moviesSlice.reducer

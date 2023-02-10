@@ -11,7 +11,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
         <Provider store={store}>
         <MainNavigator/>
-          <StatusBar style="auto" />
+          <StatusBar style="light" />
         </Provider>
     </SafeAreaView>
   );
