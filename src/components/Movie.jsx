@@ -1,9 +1,9 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Rating from "./Rating"
 
 const Movie = ({ info: { id, poster_path, title , vote_average} }) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <Image
                 style={styles.image}
                 resizeMode="cover"
@@ -12,13 +12,12 @@ const Movie = ({ info: { id, poster_path, title , vote_average} }) => {
             </Image>
             <Text numberOfLines={1} style={styles.text}>{title}</Text>
             <Rating rating={vote_average}/>
-        </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "gray",
         justifyContent: "center",
         alignItems: "center",
         width: 150,
